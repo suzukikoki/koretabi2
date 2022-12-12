@@ -14,5 +14,20 @@ devise_for :user,skip: [:passwords], controllers: {
 devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
 }
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+
+  #resource :favorites, only: [:create, :destroy]   
+  #resources :post_comments, only: [:create, :destroy]
+
+
+  scope module: :public do
+   # resources :posts, only: [:index, :new, :create, :show, :update] 
+   
+    resources :posts do
+      resource :favorites, only: [:create, :destroy]
+      resources :post_comments, only: [:create, :destroy]
+    end
+    
+  end
+ 
 end

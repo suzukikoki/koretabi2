@@ -19,10 +19,18 @@ function initMap(){
     zoom: 5,
   });
 
-  // marker = new google.maps.Marker({
-  //   position:  {lat: 40.7828, lng:-73.9653},
-  //   map: map
-  // });
+  <% @posts.each do |post| %>
+    marker_<%= post.id %> = new google.maps.Marker({ // ピンの追加
+      position: {lat: <%= post.latitude %>, lng: <%= post.longitude %>}, // ピンを立てる位置を指定
+      map: map // ピンを立てる地図を指定
+    });
+    <% end %>
+    
 }
+
+    // marker_<#%= post.id %>.addListener('click', function() { // ピンをクリックしたとき
+ 
+        
+        
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY']%>&callback=initMap" async defer></script>

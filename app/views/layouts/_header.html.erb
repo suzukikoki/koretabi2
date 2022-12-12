@@ -9,7 +9,81 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
 
-  
+
+       <% if user_signed_in? %><!--会員-->
+        <p class="ml-1" style="color:#F6E8E8; text-left">ようこそ、<%= current_user.name %>さん!</p>
+
+          <ul class="navbar-nav ml-auto">
+            
+            <!--<li>-->
+            <!--  <#%= link_to users_path(current_user),class: 'nav-link text-nowrap text-light' do %>-->
+            <!--    <p style="color:#F6E8E8;"><i class="fas fa-info-circle"></i> マイページ</p>-->
+            <!--  <#% end %>-->
+            <!--</li>-->
+            <li>
+              <%=  link_to new_post_path,class: 'nav-link text-nowrap text-light' do %>
+                <p style="color:#F6E8E8;"><i class="fas fa-birthday-cake"></i> 新規投稿</p>
+              <% end %>
+            </li>
+            <li>
+              <%=  link_to posts_path,class: 'nav-link text-nowrap text-light' do %>
+                <p style="color:#F6E8E8;"><i class="fas fa-birthday-cake"></i> 投稿一覧</p>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to destroy_user_session_path, method: :delete,class: 'nav-link text-nowrap text-light' do %>
+                <p style="color:#F6E8E8;"><i class="fas fa-sign-out-alt"></i> ログアウト</p>
+              <% end %>
+            </li>
+
+          </ul>
+
+        <% elsif admin_signed_in? %><!--管理者-->
+          <ul class="navbar-nav ml-auto">
+            <li>
+              <%= link_to admin_posts_path,class: 'nav-link text-nowrap text-light' do %>
+                <p style="color:#F6E8E8;">投稿一覧</p>
+              <% end %>
+            </li>
+            <li>
+              <%=  link_to admin_users_path,class: 'nav-link text-nowrap text-light' do %>
+                <p style="color:#F6E8E8;">会員一覧</p>
+              <% end %>
+            </li>
+            <li>
+              <%=  link_to admin_root_path ,class: 'nav-link text-nowrap text-light' do %>
+                <p style="color:#F6E8E8;">注文履歴一覧</p>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to destroy_admin_session_path, method: :delete,class: 'nav-link text-nowrap text-light' do %>
+                <p style="color:#F6E8E8;">ログアウト</p>
+              <% end %>
+            </li>
+          </ul>
+          
+
+        <% else %><!--未登録-->
+          <ul class="navbar-nav ml-auto">
+            <li>
+              <%= link_to homes_about_path,class: 'nav-link text-nowrap text-light' do %>
+                <p style="color:#F6E8E8;"><i class="fas fa-store"></i>About</p>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_user_registration_path,class: 'nav-link text-nowrap text-light' do %>
+                <p style="color:#F6E8E8;"><i class="fas fa-user-plus"></i> 新規登録</p>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_user_session_path ,class: 'nav-link text-nowrap text-light' do %>
+                <p style="color:#F6E8E8;"><i class="fas fa-sign-in-alt"></i>ログイン</p>
+              <% end %>
+            </li>
+          </ul>
+        <% end %>
+
+
       </div>
     </div>
   </nav>
