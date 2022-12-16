@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: 'public/homes#top'
-  get 'homes/about'
+  get 'public/homes/about'
   
 # 顧客用
 # URL /user/sign_in ...
@@ -32,6 +32,15 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
       resources :post_comments, only: [:create, :destroy]
     end
     
+  end
+  
+    #管理者側
+  namespace :admin do
+    resources :posts, only: [:index, :show, :destroy] do
+      #resources :post_comments, only: [:index, :destroy]
+    end
+    resources :post_comments, only: [:index, :destroy]
+    resources :users, only: [:index, :show, :edit, :update]
   end
  
 end

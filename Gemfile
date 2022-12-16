@@ -66,3 +66,4 @@ gem 'geocoder'
 #環境変数を扱う
 gem 'dotenv-rails'
 #ページネーション
+gem 'kaminari'

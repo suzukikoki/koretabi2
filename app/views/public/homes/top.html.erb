@@ -1,9 +1,12 @@
-<h2>gmap</h2>
+<div class="container-fluid">
+<div class="row">
+
+<div class='col-md-10'>
 <div id='map'></div>
 
 <style>
 #map {
-  height: 600px;
+  height: 650px;
   width: 1200px;
 }
 </style>
@@ -26,12 +29,53 @@ function initMap(){
     });
     
     <% end %>
-    
+
 }
 
     // marker_<#%= post.id %>.addListener('click', function() { // ピンをクリックしたとき
- 
-        
-        
+
+
+
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY']%>&callback=initMap" async defer></script>
+
+
+</div>
+
+
+<div class='col-md-2'>
+  <h2><strong>新着投稿</strong></h2>
+          <div class="form-inline">
+          <% @post.each do |post| %>
+            <table class="ml-2">
+              <tbody>
+                <tr><td>
+                  <%= link_to post_path(post) do %>
+                  <%= image_tag post.image, size:'200x180' %>
+                  <% end %>
+                </td></tr>
+                <tr><td><strong><%= post.place %></strong></td></tr>
+              </tbody>
+            </table>
+          <% end %>
+        </div>
+</div>
+
+</div>
+
+
+
+//マーカーを配置するループ
+  for (i = 0; i < data.length; i++) {
+    var markers = new google.maps.Marker({
+      position: new google.maps.LatLng(data[i].lat, data[i].lng),
+      map: map
+    });
+    //クリックしたら指定したurlに遷移するイベント
+    google.maps.event.addListener(markers, 'click', (function(url){
+      return function(){ location.href = url; };
+    })(data[i].url));
+  }
+}
+
+ <!--<#%= link_to post_path(post.id) do %>-->
