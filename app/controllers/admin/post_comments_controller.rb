@@ -1,9 +1,9 @@
 class Admin::PostCommentsController < ApplicationController
-        #before_action :authenticate_admin!
+  before_action :authenticate_admin!
 
   # 管理者側 投稿一覧
   def index
-    @post_comments = PostComment.all
+    @post_comments = PostComment.all.page(params[:page]).per(10)
     # 投稿数
     @post_comment_count = PostComment.all.count
   end

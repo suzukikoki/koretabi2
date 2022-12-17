@@ -1,9 +1,9 @@
 class Admin::PostsController < ApplicationController
-    #before_action :authenticate_admin!
+  before_action :authenticate_admin!
 
   # 管理者側 投稿一覧
   def index
-    @posts = Post.all.page(params[:page]).per(20)
+    @posts = Post.all.page(params[:page]).per(10)
     # 投稿数
     @post_count = Post.all.count
   end

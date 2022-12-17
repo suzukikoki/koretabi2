@@ -4,7 +4,7 @@
       <h3>新規登録</h3>
     </div>
   </div>
-  
+
   <% if @post.errors.any? %>
   <%= @post.errors.count %>件のエラーが発生しました
   <ul>
@@ -14,8 +14,11 @@
   </ul>
 <% end %>
 
+<div class="row">
+<div class='col-md-6'>
+
     <%= form_with model:@post, url:posts_path, local:true do |f| %>
-    
+
       <div class="row mt-3">
         <div class="col-md-3 d-flex align-items-center flex-row-reverse">写真</div>
         <div class="col-md-5 text-left">
@@ -29,14 +32,14 @@
           <%= f.text_field :latitude, class:"form-control", placeholder: '緯度' %>
         </div>
       </div>
-      
+
       <div class="row mt-3">
         <div class="col-md-3 d-flex align-items-center flex-row-reverse">経度</div>
         <div class="col-md-5 text-center">
           <%= f.text_field :longitude, class:"form-control", placeholder: '経度' %>
         </div>
       </div>
-    
+
        <div class="row mt-3">
         <div class="col-md-3 d-flex align-items-center flex-row-reverse">場所</div>
         <div class="col-md-5 text-center">
@@ -57,8 +60,8 @@
           <%= f.collection_select :category_id, Category.all, :id, :name, include_blank: "-- 選択して下さい --" %>
         </div>
       </div>
-      
-      
+
+
       <div class="row mt-5 pb-5">
         <div class="col-md-6 text-right">
           <%= f.submit ' 新規登録 ', class: "btn btn-lg btn-success" %>
@@ -66,4 +69,67 @@
       </div>
      <% end %>
 
+     </div>
+
+     <div class='col-md-6'>
+
+<html>
+  <head>
+
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0px; padding: 0px }
+      #map { height: 100% }
+    </style>
+
+    <script src="http://maps.google.com/maps/api/js?v=3&sensor=false"
+        type="text/javascript" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+    //<![CDATA[
+
+    var map;
+
+    // 初期化。bodyのonloadでinit()を指定することで呼び出してます
+    function init() {
+      marker = new google.maps.Marker();
+      // Google Mapで利用する初期設定用の変数
+      var latlng = new google.maps.LatLng(39, 138);
+      var opts = {
+        zoom: 5,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: latlng
+      };
+
+      // getElementById("map")の"map"は、body内の<div id="map">より
+      map = new google.maps.Map(document.getElementById("map"), opts);
+
+      google.maps.event.addListener(map, 'click', mylistener);
+    }
+
+    function mylistener(event) {
+      marker.setPosition(new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()));
+      marker.setMap(map);
+      console.log(event.latLng.lat(), event.latLng.lng());
+      document.getElementById("post_latitude").value = event.latLng.lat(); //緯度に代入
+      document.getElementById("post_longitude").value = event.latLng.lng(); //経度に代入
+    }
+
+
+
+    //]]>
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY']%>&callback=initMap" async defer></script>
+  </head>
+
+  <body onload="init()">
+
+    <div id="map" style="height:560px"></div>
+
+  </body>
+
+</html>
+
+     </div>
+  </div>
 </div>

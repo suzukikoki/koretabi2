@@ -1,5 +1,5 @@
 class Public::PostsController < ApplicationController
-    #before_action :authenticate_user!
+    before_action :authenticate_user!
 
   def new
     @post = Post.new
@@ -12,11 +12,11 @@ class Public::PostsController < ApplicationController
     @categories = Category.all
     if params[:category_id].present?
       @category = Category.find(params[:category_id])
-      @posts = @category.posts.page(params[:page])
+      @posts = @category.posts.page(params[:page]).per(5)
     elsif params[:place_key].present?
-      @posts = Post.where('place LIKE ?', "%#{params[:place_key]}%")
+      @posts = Post.where('place LIKE ?', "%#{params[:place_key]}%").page(params[:page]).per(5)
     else
-      @posts = Post.all
+      @posts = Post.all.page(params[:page]).per(5)
     end
 
   end

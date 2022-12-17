@@ -1,6 +1,6 @@
 <div class="row pb-5">
   <div class="col-8 mx-auto">
-    <h4><strong>会員一覧</strong></h4>
+    <h4><strong>会員一覧(全<%= @user_count %>件)</strong></h4>
 
     <table class="table shadow-lg mt-4">
         <thead class="table-active">
@@ -33,5 +33,11 @@
         </tbody>
       <% end %>
     </table>
+  </div>
+</div>
+
+<div class="footer container col-md-6 offset-md-3 py-2">
+  <div class="pagination justify-content-center">
+    <%= paginate @users %>
   </div>
 </div>

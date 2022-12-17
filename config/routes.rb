@@ -36,6 +36,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   
     #管理者側
   namespace :admin do
+    root to: 'users#index'
     resources :posts, only: [:index, :show, :destroy] do
       #resources :post_comments, only: [:index, :destroy]
     end

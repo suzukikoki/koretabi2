@@ -1,10 +1,10 @@
 class Public::UsersController < ApplicationController
-    #before_action :correct_user, only: [:edit, :update]
+    before_action :correct_user, only: [:edit, :update]
 
-  def index
-    @user = current_user
-    @post_comments = @user.post_comments
-  end
+  # def index
+  #   @user = current_user
+  #   @post_comments = @user.post_comments
+  # end
 
   def show
     #@user = User.find(params[:id])
@@ -32,7 +32,7 @@ class Public::UsersController < ApplicationController
     end
   end
 
-  def withdrawal
+  def withdrawal  #退会機能
     @user = User.find(params[:id])
     @user.update(is_deleted: true)
     reset_session
