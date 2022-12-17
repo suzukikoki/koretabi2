@@ -1,3 +1,24 @@
+<div class="row">
+  <div class="col d-flex justify-content-center align-items-center">
+    <%= form_with url:'/posts', method: :get, local: true do |f| %>
+      <%= f.label :place_key, 'Category' %>
+      <%= f.collection_select :category_id, Category.all, :id, :name, include_blank: "地域" %>
+      <%= f.submit 'Search' %>
+    <% end %>
+  </div>
+  
+  <div class="col d-flex justify-content-center align-items-center">
+    <%= form_with url:'/posts', method: :get, local: true do |f| %>
+      <%= f.label :place_key, 'Sarch place' %>
+      <%= f.text_field :place_key %>
+      <%= f.submit 'Search' %> 
+      <%= link_to 'Clear', posts_path %>
+    <% end %>
+  </div>
+  
+</div>
+
+
 <table class='table table-hover table-inverse'>
   <thead>
     <tr>
@@ -24,6 +45,9 @@
         </td>
         <td>
           <%= post.description %>
+        </td>
+        <td>
+          ♡<%= post.favorites.count %>
         </td>
       </tr>
     <% end %>

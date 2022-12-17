@@ -4,6 +4,15 @@
       <h3>新規登録</h3>
     </div>
   </div>
+  
+  <% if @post.errors.any? %>
+  <%= @post.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @post.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
 
     <%= form_with model:@post, url:posts_path, local:true do |f| %>
     

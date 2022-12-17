@@ -7,9 +7,18 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all
+    #@posts = Post.all
     @user = current_user
     @categories = Category.all
+    if params[:category_id].present?
+      @category = Category.find(params[:category_id])
+      @posts = @category.posts.page(params[:page])
+    elsif params[:place_key].present?
+      @posts = Post.where('place LIKE ?', "%#{params[:place_key]}%")
+    else
+      @posts = Post.all
+    end
+
   end
 
   def show

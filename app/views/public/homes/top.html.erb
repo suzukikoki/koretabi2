@@ -28,11 +28,16 @@ function initMap(){
       map: map // ピンを立てる地図を指定
     });
     
-    <% end %>
+    google.maps.event.addListener(marker_<%= post.id %>, 'click', (function(){ //クリックイベント
+      window.location.href = "<%= post_path(post.id) %>" //urlを直接書き換える
+    }));
+    
+  <% end %>
+    
 
-}
+  }
 
-    // marker_<#%= post.id %>.addListener('click', function() { // ピンをクリックしたとき
+
 
 
 
@@ -43,8 +48,8 @@ function initMap(){
 </div>
 
 
-<div class='col-md-2'>
-  <h2><strong>新着投稿</strong></h2>
+      <div class='col-md-2'>
+        <h2><strong>新着投稿</strong></h2>
           <div class="form-inline">
           <% @post.each do |post| %>
             <table class="ml-2">
@@ -59,23 +64,9 @@ function initMap(){
             </table>
           <% end %>
         </div>
-</div>
+　　　</div>
 
 </div>
 
 
-
-//マーカーを配置するループ
-  for (i = 0; i < data.length; i++) {
-    var markers = new google.maps.Marker({
-      position: new google.maps.LatLng(data[i].lat, data[i].lng),
-      map: map
-    });
-    //クリックしたら指定したurlに遷移するイベント
-    google.maps.event.addListener(markers, 'click', (function(url){
-      return function(){ location.href = url; };
-    })(data[i].url));
-  }
-}
-
- <!--<#%= link_to post_path(post.id) do %>-->
+ 

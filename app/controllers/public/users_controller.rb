@@ -10,6 +10,8 @@ class Public::UsersController < ApplicationController
     #@user = User.find(params[:id])
     @user = current_user
     @post_comments = @user.post_comments
+    @favorites = @user.favorites.page(params[:page]).per(5)
+    @posts = @user.posts.page(params[:page]).per(5)
   end
 
   def edit

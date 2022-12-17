@@ -21,14 +21,40 @@
         </tr>
       </table>
       </div>
+      
+      <div class="row">
+        
+      <div class="col">
+        <h4 style="background-color:#EEEEEE;color:dark;display:inline">投稿一覧</h4>
+        <table>
+          <% @posts.each do |post| %>
+        <tr>
+          <td>
+            <%= link_to post_path(post.id) do %>
+            <%= post.place %>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+        </table>
+        <%= paginate @posts %>
+      </div>
+    
+      <div class="col">
+        <h4 style="background-color:#EEEEEE;color:dark;display:inline">いいね一覧</h4>
+        <table>
+          <% @favorites.each do |favorite| %>
+        <tr>
+          <td>
+            <%= link_to post_path(favorite.post.id) do %>
+            <%= favorite.post.place %>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+        </table>
+        <%= paginate @favorites %>
+        </div>
+      </div>
+      
 
-  <h4 style="background-color:#EEEEEE;color:dark;display:inline"><%= @user.name %> さんの投稿一覧</h4>
-    <table>
-      <% @post_comments.each do |post_comment| %>
-      <tr>
-        <td><%= post_comment.post.place %></td>
-        <td><%= post_comment.comment %></td>
-        <td></td>
-      </tr>
-      <% end %>
-    </table>
