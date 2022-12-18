@@ -1,5 +1,5 @@
 class Public::PostsController < ApplicationController
-    before_action :authenticate_user!
+    before_action :authenticate_user! , except: [:show, :index]
 
   def new
     @post = Post.new
@@ -7,7 +7,6 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    #@posts = Post.all
     @user = current_user
     @categories = Category.all
     if params[:category_id].present?
@@ -25,7 +24,7 @@ class Public::PostsController < ApplicationController
     @user = current_user
     @post = Post.find(params[:id])
     @post_comment = PostComment.new
-    @post_comments= @post.post_comments
+    @post_comments = @post.post_comments
     @categories = Category.all
   end
   

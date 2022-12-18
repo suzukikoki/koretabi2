@@ -15,7 +15,7 @@
 <% end %>
 
 <div class="row">
-<div class='col-md-6'>
+  <div class='col-md-6'>
 
     <%= form_with model:@post, url:posts_path, local:true do |f| %>
 
@@ -67,14 +67,12 @@
           <%= f.submit ' 新規登録 ', class: "btn btn-lg btn-success" %>
         </div>
       </div>
-     <% end %>
+    <% end %>
 
-     </div>
+  </div>
 
-     <div class='col-md-6'>
+    <div class='col-md-6'>
 
-<html>
-  <head>
 
     <style type="text/css">
       html { height: 100% }
@@ -88,7 +86,7 @@
     <script type="text/javascript">
     //<![CDATA[
 
-    var map;
+    var new_map;
 
     // 初期化。bodyのonloadでinit()を指定することで呼び出してます
     function init() {
@@ -96,31 +94,40 @@
       // Google Mapで利用する初期設定用の変数
       var latlng = new google.maps.LatLng(39, 138);
       var opts = {
+        disableDefaultUI: true,  //コントローラ削除
+        fullscreenControl: true,  //フルスクリーンのみ表示
         zoom: 5,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         center: latlng
       };
 
       // getElementById("map")の"map"は、body内の<div id="map">より
-      map = new google.maps.Map(document.getElementById("map"), opts);
+      new_map = new google.maps.Map(document.getElementById("map"), opts);
 
-      google.maps.event.addListener(map, 'click', mylistener);
+      google.maps.event.addListener(new_map, 'click', mylistener);
     }
 
     function mylistener(event) {
       marker.setPosition(new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()));
-      marker.setMap(map);
+      marker.setMap(new_map);
       console.log(event.latLng.lat(), event.latLng.lng());
       document.getElementById("post_latitude").value = event.latLng.lat(); //緯度に代入
       document.getElementById("post_longitude").value = event.latLng.lng(); //経度に代入
     }
 
+    if ( window.google){
+      init();
+    }else{
+      var script = document.createElement( 'script' );
+      script.type = 'text/javascript';
+      script.src = "https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY']%>&callback=init"
+      document.body.appendChild(script);
+    }
 
 
     //]]>
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY']%>&callback=initMap" async defer></script>
-  </head>
+
 
   <body onload="init()">
 
@@ -128,7 +135,7 @@
 
   </body>
 
-</html>
+
 
      </div>
   </div>

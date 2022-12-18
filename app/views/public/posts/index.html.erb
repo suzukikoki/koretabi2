@@ -50,11 +50,11 @@
         </td>
         <td>
           <%= link_to post_path(post.id) do %>
-            <%= post.place %>
+            <%= post.place.truncate(12) %>
           <% end %>
         </td>
         <td>
-          <%= post.description %>
+          <%= post.description.truncate(12) %>
         </td>
         <td>
           ♡<%= post.favorites.count %>

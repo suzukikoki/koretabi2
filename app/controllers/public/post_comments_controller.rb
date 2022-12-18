@@ -1,5 +1,5 @@
 class Public::PostCommentsController < ApplicationController
-      before_action :authenticate_user!
+    before_action :authenticate_user!
     
       # コメント投稿
   def create
@@ -8,11 +8,6 @@ class Public::PostCommentsController < ApplicationController
     @post_comment.post_id = @post.id
     @post_comment.save
     redirect_to post_path(@post)
-    # if @post_comment.save
-    #   render "public/post_comments/post_comment"
-    # else
-    #   render "public/posts/show"
-    # end
   end
 
   # コメント削除
@@ -21,7 +16,6 @@ class Public::PostCommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @post_comment.save
     redirect_to post_path(@post)
-    # render "public/post_comments/post_comment"
   end
 
   private

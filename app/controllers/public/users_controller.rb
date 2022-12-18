@@ -1,13 +1,7 @@
 class Public::UsersController < ApplicationController
     before_action :correct_user, only: [:edit, :update]
 
-  # def index
-  #   @user = current_user
-  #   @post_comments = @user.post_comments
-  # end
-
   def show
-    #@user = User.find(params[:id])
     @user = current_user
     @post_comments = @user.post_comments
     @favorites = @user.favorites.page(params[:page]).per(5)

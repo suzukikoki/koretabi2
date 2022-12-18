@@ -1,72 +1,76 @@
 <div class="container-fluid">
-<div class="row">
+  <div class="row">
 
-<div class='col-md-10'>
-<div id='map'></div>
+    <div class='col-md-10'>
+      <div id='map'></div>
 
-<style>
-#map {
-  height: 650px;
-  width: 1200px;
-}
-</style>
+      <style>
+      #map {
+        height: 650px;
+        width: 1200px;
+      }
+      </style>
 
-<script>
-let map
+      <script>
+      var top_map;
+      
 
-function initMap(){
-  geocoder = new google.maps.Geocoder()
+      function initMap(){
+        geocoder = new google.maps.Geocoder()
 
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 39.652832, lng: 139.839478},
-    zoom: 5,
-  });
+        top_map = new google.maps.Map(document.getElementById('map'), {
+          disableDefaultUI: true,  //コントローラ削除
+          fullscreenControl: true,  //フルスクリーンのみ表示
+          center: {lat: 39.652832, lng: 139.839478},
+          zoom: 5,
+        });
 
-  <% @posts.each do |post| %>
-    marker_<%= post.id %> = new google.maps.Marker({ // ピンの追加
-      position: {lat: <%= post.latitude %>, lng: <%= post.longitude %>}, // ピンを立てる位置を指定
-      map: map // ピンを立てる地図を指定
-    });
-    
-    google.maps.event.addListener(marker_<%= post.id %>, 'click', (function(){ //クリックイベント
-      window.location.href = "<%= post_path(post.id) %>" //urlを直接書き換える
-    }));
-    
-  <% end %>
-    
+      <% @posts.each do |post| %>
+        marker_<%= post.id %> = new google.maps.Marker({ // ピンの追加
+          position: {lat: <%= post.latitude %>, lng: <%= post.longitude %>}, // ピンを立てる位置を指定
+          map: top_map // ピンを立てる地図を指定
+         });
 
-  }
+        google.maps.event.addListener(marker_<%= post.id %>, 'click', (function(){ //クリックイベント
+          window.location.href = "<%= post_path(post.id) %>" //urlを直接書き換える
+        }));
 
-
+      <% end %>
 
 
+      } 
+      
+      if ( window.google){
+        initMap();
+      }else{
+        var script = document.createElement( 'script' );
+        script.type = 'text/javascript';
+        script.src = "https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY']%>&callback=initMap"
+        document.body.appendChild(script);
+      }
 
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY']%>&callback=initMap" async defer></script>
+      </script>
 
 
-</div>
-
-
+    </div>
       <div class='col-md-2'>
-        <h2><strong>新着投稿</strong></h2>
-          <div class="form-inline">
+        <h2 class='text-center'><strong>新着投稿</strong></h2>
+        <div class="form-inline">
           <% @post.each do |post| %>
             <table class="ml-2">
-              <tbody>
-                <tr><td>
-                  <%= link_to post_path(post) do %>
-                  <%= image_tag post.image, size:'200x180' %>
-                  <% end %>
-                </td></tr>
-                <tr><td><strong><%= post.place %></strong></td></tr>
-              </tbody>
-            </table>
+          <tbody>
+            <tr><td>
+            <%= link_to post_path(post) do %>
+              <%= image_tag post.image, size:'200x180' %>
+            <% end %>
+            </td></tr>
+            <tr><td><strong><%= post.place.truncate(12) %></strong></td></tr>
+          </tbody>
+          </table>
           <% end %>
-        </div>
-　　　</div>
-
+      </div>
+    </div>
+  </div>
 </div>
 
 
- 

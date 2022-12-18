@@ -32,7 +32,7 @@
           <ul class="list-group">
             <li class="list-group-item">
             <%= link_to post_path(post.id) do %>
-            <%= post.place %>
+            <%= post.place.truncate(12) %>
             <% end %>
             </li>
           </ul>
@@ -49,7 +49,7 @@
           <ul class="list-group">
             <li class="list-group-item">
             <%= link_to post_path(favorite.post.id) do %>
-            <%= favorite.post.place %>
+            <%= favorite.post.place.truncate(12) %>
             <% end %>
             </li>
           </ul>

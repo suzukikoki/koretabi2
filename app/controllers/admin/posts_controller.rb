@@ -4,7 +4,7 @@ class Admin::PostsController < ApplicationController
   # 管理者側 投稿一覧
   def index
     @posts = Post.all.page(params[:page]).per(10)
-    # 投稿数
+  # 投稿数
     @post_count = Post.all.count
   end
 
