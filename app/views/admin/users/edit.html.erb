@@ -1,0 +1,38 @@
+<div class="container pb-5">
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <h4><strong><%= "user.name" %>さんの会員情報編集</strong></h4>
+
+    <%= form_with model: @user, url: admin_user_path(@user.id), method: :patch do |f| %>
+<div class="mt-4 shadow-lg px-5 py-5 mt-4">
+  <table class="table　table-borderless table-sm ml-5">
+  <div class="field">
+    <tr>
+    <div class="field">
+      <th>会員ID</th><td><%= @user.id %></td>
+      <th>名前</th><td><%= @user.name %></td>
+    </div>
+    </tr>
+  </div>
+
+
+  <div class="field">
+    <tr>
+      <th></th>
+      <label>
+        <td><%= f.radio_button :is_deleted, :false %><%= f.label :is_deleted_false,"有効" %>
+        </td>
+        <td><%= f.radio_button :is_deleted, :true %><%= f.label :is_deleted_true,"退会" %>
+        </td>
+      </label>
+    </tr>
+  </div>
+  </table>
+</div>
+  <div class="actions mt-3 text-center">
+    <%= f.submit "変更を保存", class: "btn btn-outline-danger mt-2" %>
+  </div>
+    <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<div class='container'>
+  <div class='row mt-5'>
+    <div class='col-12 mx-auto'>
+      <div class="pt-5 pl-5 pr-5 pb-5">
+      <font color="red"><h2 class="notice text-center mt-3"><%= notice %></h2></font>
+    <h4 style="background-color:#EEEEEE;color:dark;display:inline">新規会員登録</h4>
+      <%= form_with model: @user, url: user_registration_path do |f| %>
+      <%= render "public/shared/error_messages", resource: resource %>
+    <br>
+
+    <div class="row form-group">
+      <div class="col-sm-3"><%= f.label :ニックネーム %></div>
+      <div class="col-sm-9"><%= f.text_field :name, placeholder:"ニックネーム" %></div>
+    </div>
+
+    <div class="row form-group">
+      <div class="col-sm-3"><%= f.label :email, "メールアドレス" %></div>
+      <div class="col-sm-9"><%= f.email_field :email, placeholder:"sample@example.com", autofocus: true, autocomplete: "email" %></div>
+    </div>
+
+    <div class="row form-group">
+      <div class="col-sm-3"><%= f.label :password, "パスワード" %>
+      <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %>文字以上)</em>
+      <% end %></div>
+      <div class="col-sm-9"><%= f.password_field :password, placeholder:"password", autocomplete: "new-password" %></div>
+    </div>
+
+    <div class="row form-group">
+      <div class="col-sm-3"><%= f.label :password_confirmation, "パスワード(確認用)" %></div>
+      <div class="col-sm-9"><%= f.password_field :password_confirmation, placeholder:"password",  autocomplete: "new-password" %></div>
+    </div>
+
+    <div class="form-group offset-3">
+      <%= f.submit "新規登録", class: "btn btn-success" %>
+    </div>
+  <% end %>
+
+　<br>
+
+  <h4 style="background-color:#EEEEEE;color:dark;display:inline">既に登録済みですか？</h4><br><br>
+
+  <%= link_to "こちら", new_user_session_path %>
+  <span>　からログインをお願いします。</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="container pt-5 pb-5">
+  <div class="row">
+    <div class="col-xs-8 col-offset-2">
+      <h3>編集</h3>
+    </div>
+  </div>
+
+    <%= form_with model:@post, url:post_path(@post), local:true do |f| %>
+    
+      <div class="row mt-3">
+        <div class="col-md-3 d-flex align-items-center flex-row-reverse">写真</div>
+        <div class="col-md-5 text-left">
+          <%= f.file_field :image, accept: "image/*" %>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-3 d-flex align-items-center flex-row-reverse">緯度</div>
+        <div class="col-md-5 text-center">
+          <%= f.text_field :latitude, class:"form-control", placeholder: '緯度' %>
+        </div>
+      </div>
+      
+      <div class="row mt-3">
+        <div class="col-md-3 d-flex align-items-center flex-row-reverse">経度</div>
+        <div class="col-md-5 text-center">
+          <%= f.text_field :longitude, class:"form-control", placeholder: '経度' %>
+        </div>
+      </div>
+    
+       <div class="row mt-3">
+        <div class="col-md-3 d-flex align-items-center flex-row-reverse">場所</div>
+        <div class="col-md-5 text-center">
+          <%= f.text_field :place, class:"form-control", placeholder: '場所' %>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-3 text-right">説明</div>
+        <div class="col-md-5 text-center">
+          <%= f.text_area :description, :size => "50x10", class:"form-control", placeholder: 'ここに説明文を記述します' %>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-3 d-flex align-items-center flex-row-reverse">カテゴリー</div>
+        <div class="col-md-5 text-left">
+          <%= f.collection_select :category_id, Category.all, :id, :name, include_blank: "-- 選択して下さい --" %>
+        </div>
+      </div>
+      
+      
+      <div class="row mt-5 pb-5">
+        <div class="col-md-6 text-right">
+          <%= f.submit ' 編集 ', class: "btn btn-lg btn-success" %>
+        </div>
+      </div>
+     <% end %>
+
+</div>
