@@ -1,0 +1,42 @@
+<div class="row pb-5">
+  <div class="col-11 mx-auto">
+    <h4><strong>コメント一覧(全<%= @post_comment_count %>件)</strong></h4>
+
+    <table class="table shadow-lg mt-4">
+        <thead class="table-active">
+          <tr>
+            <th>コメントしたユーザー</th>
+            <th>投稿タイトル</th>
+            <th>コメント内容</th>
+            <th></th>
+          </tr>
+        </thead>
+    　　　  <% @post_comments.each do |post_comment| %>
+        <tbody>
+          <tr>
+            <td>
+              <%= link_to admin_user_path(post_comment.user.id) do %>
+              <%= post_comment.user.name %>
+              <% end %>
+            </td>
+            <td><%= post_comment.post.place %></td>
+            <td><%= post_comment.comment %></td>
+            <td>
+              <div class="mt-3 text-center">
+                <div>
+                  <%= link_to "削除", admin_post_comment_path(post_comment), method: :delete, class: "btn btn-danger pull-right" %>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<div class="footer container col-md-6 offset-md-3 py-2">
+  <div class="pagination justify-content-center">
+    <%= paginate @post_comments %>
+  </div>
+</div>
