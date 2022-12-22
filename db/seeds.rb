@@ -30,7 +30,7 @@ users = User.create!(
 
 Post.create!(
   [
-    {place: '北海道最北端！', image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-post1.jpg"), filename:"sample-post4.jpg"), description: '日本最北端の宗谷岬です！', latitude: 45.52290338784266, longitude: 141.93659484386444, user_id: users[0].id, category_id: categories[0].id },
+    {place: '北海道最北端！', image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-post4.jpg"), filename:"sample-post4.jpg"), description: '日本最北端の宗谷岬です！', latitude: 45.52290338784266, longitude: 141.93659484386444, user_id: users[0].id, category_id: categories[0].id },
     {place: '東京タワー！', image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-post2.jpg"), filename:"sample-post2.jpg"), description: '東京のシンボル！東京タワーー！', latitude: 35.6586212780812, longitude: 139.7454071044922, user_id: users[1].id, category_id: categories[2].id },
     {place: 'ちゅらうみ水族館！', image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-post3.jpg"), filename:"sample-post3.jpg"), description: '全人類が一度は行ってみたい！美ら海水族館です！', latitude: 26.694398023169406, longitude: 127.8779411315918, user_id: users[2].id, category_id: categories[7].id }
   ]
